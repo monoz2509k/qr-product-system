@@ -1,0 +1,21 @@
+[project]
+name = "qr-product-system"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "alembic>=1.20.1",
+    "fastapi>=0.162.1",
+    "psycopg[binary]>=3.3.8",
+    "pydantic-settings>=2.15.0",
+    "sqlalchemy>=2.0.57",
+    "uvicorn[standard]>=0.54.0",
+]
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=9.2.0",
+    "ruff>=0.17.4",
+]
