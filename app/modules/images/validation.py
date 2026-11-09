@@ -29,6 +29,11 @@ def detect_content_type(data: bytes) -> str | None:
 
 
 def validate_image(data: bytes) -> ValidatedImage:
+    """Checks the header only, not full decodability.
+
+    Callers must read at most MAX_IMAGE_BYTES + 1 bytes from the upload,
+    so oversized files are rejected without loading them whole.
+    """
     if not data:
         raise ImageValidationError("invalid_image", 422)
     if len(data) > MAX_IMAGE_BYTES:

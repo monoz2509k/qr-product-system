@@ -16,6 +16,7 @@ WEBP = b"RIFF\x00\x00\x00\x00WEBPVP8 " + b"\x00" * 16
 @pytest.mark.parametrize(
     ("data", "content_type"),
     [(JPEG, "image/jpeg"), (PNG, "image/png"), (WEBP, "image/webp")],
+    ids=["jpeg", "png", "webp"],
 )
 def test_accepts_supported_formats(data, content_type):
     image = validate_image(data)
@@ -25,7 +26,15 @@ def test_accepts_supported_formats(data, content_type):
 
 @pytest.mark.parametrize(
     "data",
-    [b"%PDF-1.7 fake", b"GIF89a" + b"\x00" * 16, b"RIFF\x00\x00\x00\x00WAVE", b"hello"],
+    [
+        b"%PDF-1.7 fake",
+        b"GIF89a" + b"\x00" * 16,
+        b"RIFF\x00\x00\x00\x00WAVE",
+        b"hello",
+        b"\xff\xd8",
+        b"RIFF",
+    ],
+    ids=["pdf", "gif", "wav", "text", "short-jpeg", "short-riff"],
 )
 def test_rejects_unsupported_content(data):
     with pytest.raises(ImageValidationError) as exc:
