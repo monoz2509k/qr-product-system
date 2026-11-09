@@ -13,6 +13,9 @@ dependencies = [
     "uvicorn[standard]>=0.54.0",
 ]
 
+[tool.pytest.ini_options]
+markers = ["db: needs PostgreSQL (docker compose up -d)"]
+
 [dependency-groups]
 dev = [
     "httpx>=0.28.1",
